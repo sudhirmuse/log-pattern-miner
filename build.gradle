@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'dev.sudhirmuse'
+version = '0.1.0'
+
+repositories { mavenCentral() }
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+application { mainClass = 'dev.sudhirmuse.logminer.LogPatternMinerCli' }
+
+jar {
+    manifest { attributes 'Main-Class': application.mainClass.get() }
+    archiveFileName = 'log-pattern-miner.jar'
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.13.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') { useJUnitPlatform() }
